@@ -1,12 +1,16 @@
 package ui
 
 import (
+	"os"
 	"testing"
 
 	"github.com/garyloug/tetris/pkg/tetris"
 )
 
 func TestTcell_Init_Validation(t *testing.T) {
+	if os.Getenv("CI") == "true" {
+		t.Skip("skipping terminal-dependent test in CI")
+	}
 	tc := &tcell{}
 
 	tests := []struct {
@@ -78,6 +82,9 @@ func TestTcell_Init_Validation(t *testing.T) {
 }
 
 func TestTcell_GetBlockStyles(t *testing.T) {
+	if os.Getenv("CI") == "true" {
+		t.Skip("skipping terminal-dependent test in CI")
+	}
 	tc := &tcell{}
 	tc.ui = ui{
 		oStyles: tetris.BlockStyles{Block0: "O0", Block1: "O1", Block2: "O2", Block3: "O3"},
@@ -112,6 +119,9 @@ func TestTcell_GetBlockStyles(t *testing.T) {
 }
 
 func TestTcell_SetDevStyles(t *testing.T) {
+	if os.Getenv("CI") == "true" {
+		t.Skip("skipping terminal-dependent test in CI")
+	}
 	tc := &tcell{}
 	tc.ui = ui{
 		oStyles: tetris.BlockStyles{
