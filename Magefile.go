@@ -60,7 +60,7 @@ func Run() error {
 
 // Test runs unit tests
 func Test() error {
-	out, err := sh.Output("go", "test", "./...")
+	out, err := sh.OutputWith(map[string]string{"TERM": "xterm"}, "go", "test", "./...")
 	if err != nil {
 		fmt.Println(string(out))
 		fmt.Println("❌ Tests failed!")
