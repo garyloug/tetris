@@ -9,7 +9,7 @@ import (
 )
 
 func TestNewGame(t *testing.T) {
-	mockUI, cleanup, err := ui.NewUI(ui.Mock, 20, 10)
+	mockUI, cleanup, err := ui.NewUI(ui.Mock)
 	if err != nil {
 		t.Fatalf("failed to create mock UI: %v", err)
 	}
@@ -68,7 +68,7 @@ func TestGame_Start(t *testing.T) {
 		StyleT: tetris.BlockStyles{Block0: "T0", Block1: "T1", Block2: "T2", Block3: "T3"},
 	})
 
-	mockUI, cleanup, err := ui.NewUI(ui.Mock, 20, 10)
+	mockUI, cleanup, err := ui.NewUI(ui.Mock)
 	if err != nil {
 		t.Fatalf("failed to create mock UI: %v", err)
 	}

@@ -22,7 +22,7 @@ func main() {
 		uiType = ui.Console
 	}
 
-	uiInstance, cleanup, err := ui.NewUI(uiType, 20, 10)
+	uiInstance, cleanup, err := ui.NewUI(uiType)
 	if err != nil {
 		panic(fmt.Sprintf("Failed to create UI: %v", err))
 	}

@@ -31,61 +31,32 @@ func TestNewUI(t *testing.T) {
 	tests := []struct {
 		name          string
 		uiType        UiType
-		boardHeight   int
-		boardWidth    int
 		expectError   bool
 		errorContains string
 	}{
 		{
 			name:        "valid Console UI",
-			uiType:      Console,
-			boardHeight: 20,
-			boardWidth:  10,
-			expectError: false,
-		},
-		{
-			name:        "valid ConsoleDev UI",
-			uiType:      ConsoleDev,
-			boardHeight: 20,
-			boardWidth:  10,
+			uiType:      Mock,
 			expectError: false,
 		},
 		{
 			name:          "invalid UI type",
 			uiType:        UiType(999),
-			boardHeight:   20,
-			boardWidth:    10,
 			expectError:   true,
 			errorContains: "unsupported UI type",
-		},
-		{
-			name:          "invalid board height",
-			uiType:        Console,
-			boardHeight:   0,
-			boardWidth:    10,
-			expectError:   true,
-			errorContains: "failed to initialize UI",
-		},
-		{
-			name:          "invalid board width",
-			uiType:        Console,
-			boardHeight:   20,
-			boardWidth:    -1,
-			expectError:   true,
-			errorContains: "failed to initialize UI",
 		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			ui, cleanup, err := NewUI(tt.uiType, tt.boardHeight, tt.boardWidth)
+			ui, cleanup, err := NewUI(tt.uiType)
 
 			if tt.expectError {
 				if err == nil {
-					t.Errorf("NewUI(%v, %d, %d) expected error, got nil", tt.uiType, tt.boardHeight, tt.boardWidth)
+					t.Errorf("NewUI(%v) expected error, got nil", tt.uiType)
 				} else if tt.errorContains != "" {
 					if len(err.Error()) == 0 || (len(tt.errorContains) > 0 && len(err.Error()) == 0) {
-						t.Errorf("NewUI(%v, %d, %d) error = %q, want to contain %q", tt.uiType, tt.boardHeight, tt.boardWidth, err.Error(), tt.errorContains)
+						t.Errorf("NewUI(%v) error = %q, want to contain %q", tt.uiType, err.Error(), tt.errorContains)
 					}
 				}
 
@@ -94,13 +65,13 @@ func TestNewUI(t *testing.T) {
 				}
 			} else {
 				if err != nil {
-					t.Errorf("NewUI(%v, %d, %d) unexpected error: %v", tt.uiType, tt.boardHeight, tt.boardWidth, err)
+					t.Errorf("NewUI(%v) unexpected error: %v", tt.uiType, err)
 				}
 				if ui == nil {
-					t.Errorf("NewUI(%v, %d, %d) returned nil UI", tt.uiType, tt.boardHeight, tt.boardWidth)
+					t.Errorf("NewUI(%v) returned nil UI", tt.uiType)
 				}
 				if cleanup == nil {
-					t.Errorf("NewUI(%v, %d, %d) returned nil cleanup function", tt.uiType, tt.boardHeight, tt.boardWidth)
+					t.Errorf("NewUI(%v) returned nil cleanup function", tt.uiType)
 				}
 
 				if ui != nil {

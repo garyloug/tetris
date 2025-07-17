@@ -1,7 +1,7 @@
 
 module github.com/garyloug/tetris
 
-go 1.23
+go 1.21 // latest that's compatible with golangci-lint
 
 require (
 	github.com/gdamore/tcell/v2 v2.8.1
