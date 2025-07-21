@@ -73,7 +73,7 @@ func Test() error {
 // Lint runs golangci-lint
 func Lint() error {
 	if err := sh.Run("which", "golangci-lint"); err != nil {
-		fmt.Println("⚠️  golangci-lint not found.")
+		fmt.Println("⚠️ golangci-lint not found.")
 		fmt.Println("Install it with: mage installLint")
 		return nil
 	}

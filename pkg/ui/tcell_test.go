@@ -6,7 +6,7 @@ import (
 	"github.com/garyloug/tetris/pkg/tetris"
 )
 
-func TestTcell_Init_Validation(t *testing.T) {
+func TestTcell_Init(t *testing.T) {
 	tc := &tcell{}
 
 	tests := []struct {

@@ -38,7 +38,7 @@ type UI interface {
 	Stop()
 }
 
-func NewUI(uiType UiType, boardHeight, boardWidth int) (UI, func(), error) {
+func NewUI(uiType UiType) (UI, func(), error) {
 	var ui UI
 	var cleanup func()
 
@@ -51,13 +51,6 @@ func NewUI(uiType UiType, boardHeight, boardWidth int) (UI, func(), error) {
 		ui, cleanup = newMockUI()
 	default:
 		return nil, nil, fmt.Errorf("unsupported UI type: %d", uiType)
-	}
-
-	if err := ui.Init(boardHeight, boardWidth); err != nil {
-		if cleanup != nil {
-			cleanup()
-		}
-		return nil, nil, fmt.Errorf("failed to initialize UI: %w", err)
 	}
 
 	return ui, cleanup, nil
