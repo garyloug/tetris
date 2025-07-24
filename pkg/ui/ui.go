@@ -16,8 +16,9 @@ const (
 	KeyRight
 	KeyPause
 	KeyStop
-	Console UiType = iota
-	ConsoleDev
+	Tcell UiType = iota
+	TcellDev
+	Fyne
 	Mock
 )
 
@@ -39,20 +40,28 @@ type UI interface {
 }
 
 func NewUI(uiType UiType) (UI, func(), error) {
-	var ui UI
-	var cleanup func()
+	var (
+		ui      UI
+		cleanup func()
+		err     error
+	)
 
 	switch uiType {
-	case Console:
+	case Tcell:
 		ui, cleanup = newTcellUI()
-	case ConsoleDev:
+	case TcellDev:
 		ui, cleanup = newTcellDevUI()
+	case Fyne:
+		ui, cleanup, err = newFyneUI()
 	case Mock:
 		ui, cleanup = newMockUI()
 	default:
 		return nil, nil, fmt.Errorf("unsupported UI type: %d", uiType)
 	}
 
+	if err != nil {
+		return nil, nil, err
+	}
 	return ui, cleanup, nil
 }
 

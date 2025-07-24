@@ -12,14 +12,16 @@ import (
 )
 
 func main() {
+	console := flag.Bool("console", false, "Run with a console UI.")
 	devMode := flag.Bool("dev", false, "Run with a development UI.")
+
 	flag.Parse()
 
-	var uiType ui.UiType
-	if *devMode {
-		uiType = ui.ConsoleDev
-	} else {
-		uiType = ui.Console
+	uiType := getDefaultUIType()
+	if *devMode { // will need to be updated if more UIs get dev modes
+		uiType = ui.TcellDev
+	} else if *console {
+		uiType = ui.Tcell
 	}
 
 	uiInstance, cleanup, err := ui.NewUI(uiType)

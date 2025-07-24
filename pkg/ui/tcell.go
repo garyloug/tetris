@@ -301,7 +301,7 @@ func (tc *tcell) run() {
 }
 
 func (tc *tcell) setDevStyles() {
-	styles := []*tetris.BlockStyles{&tc.oStyles, &tc.iStyles, &tc.sStyles, &tc.zStyles, &tc.lStyles, &tc.jStyles, &tc.tStyles}
+	styles := []*tetris.BlockStyles{&tc.ui.oStyles, &tc.ui.iStyles, &tc.ui.sStyles, &tc.ui.zStyles, &tc.ui.lStyles, &tc.ui.jStyles, &tc.ui.tStyles}
 	for _, style := range styles {
 		style.Block0 = TcellStyle{
 			style: style.Block0.(TcellStyle).style,
