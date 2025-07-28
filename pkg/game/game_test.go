@@ -59,13 +59,13 @@ func TestGame_Start(t *testing.T) {
 	tetris.Init(tetris.Config{
 		SpawnX: tetroSpawnX,
 		SpawnY: tetroSpawnY,
-		StyleO: tetris.BlockStyles{Block0: "O0", Block1: "O1", Block2: "O2", Block3: "O3"},
-		StyleI: tetris.BlockStyles{Block0: "I0", Block1: "I1", Block2: "I2", Block3: "I3"},
-		StyleS: tetris.BlockStyles{Block0: "S0", Block1: "S1", Block2: "S2", Block3: "S3"},
-		StyleZ: tetris.BlockStyles{Block0: "Z0", Block1: "Z1", Block2: "Z2", Block3: "Z3"},
-		StyleL: tetris.BlockStyles{Block0: "L0", Block1: "L1", Block2: "L2", Block3: "L3"},
-		StyleJ: tetris.BlockStyles{Block0: "J0", Block1: "J1", Block2: "J2", Block3: "J3"},
-		StyleT: tetris.BlockStyles{Block0: "T0", Block1: "T1", Block2: "T2", Block3: "T3"},
+		StyleO: "O",
+		StyleI: "I",
+		StyleS: "S",
+		StyleZ: "Z",
+		StyleL: "L",
+		StyleJ: "J",
+		StyleT: "T",
 	})
 
 	mockUI, cleanup, err := ui.NewUI(ui.Mock)

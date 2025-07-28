@@ -8,13 +8,13 @@ func TestInit(t *testing.T) {
 	testConfig := Config{
 		SpawnX: 5,
 		SpawnY: 0,
-		StyleO: BlockStyles{Block0: "O0", Block1: "O1", Block2: "O2", Block3: "O3"},
-		StyleI: BlockStyles{Block0: "I0", Block1: "I1", Block2: "I2", Block3: "I3"},
-		StyleS: BlockStyles{Block0: "S0", Block1: "S1", Block2: "S2", Block3: "S3"},
-		StyleZ: BlockStyles{Block0: "Z0", Block1: "Z1", Block2: "Z2", Block3: "Z3"},
-		StyleL: BlockStyles{Block0: "L0", Block1: "L1", Block2: "L2", Block3: "L3"},
-		StyleJ: BlockStyles{Block0: "J0", Block1: "J1", Block2: "J2", Block3: "J3"},
-		StyleT: BlockStyles{Block0: "T0", Block1: "T1", Block2: "T2", Block3: "T3"},
+		StyleO: "O",
+		StyleI: "I",
+		StyleS: "S",
+		StyleZ: "Z",
+		StyleL: "L",
+		StyleJ: "J",
+		StyleT: "T",
 	}
 
 	Init(testConfig)
@@ -25,42 +25,8 @@ func TestInit(t *testing.T) {
 	if config.SpawnY != testConfig.SpawnY {
 		t.Errorf("Init() SpawnY = %v, want %v", config.SpawnY, testConfig.SpawnY)
 	}
-	if config.StyleO.Block0 != testConfig.StyleO.Block0 {
-		t.Errorf("Init() StyleO.Block0 = %v, want %v", config.StyleO.Block0, testConfig.StyleO.Block0)
-	}
-}
-
-func TestNewRandomTetro(t *testing.T) {
-	Init(Config{
-		SpawnX: 5,
-		SpawnY: 0,
-		StyleO: BlockStyles{Block0: "O0", Block1: "O1", Block2: "O2", Block3: "O3"},
-		StyleI: BlockStyles{Block0: "I0", Block1: "I1", Block2: "I2", Block3: "I3"},
-		StyleS: BlockStyles{Block0: "S0", Block1: "S1", Block2: "S2", Block3: "S3"},
-		StyleZ: BlockStyles{Block0: "Z0", Block1: "Z1", Block2: "Z2", Block3: "Z3"},
-		StyleL: BlockStyles{Block0: "L0", Block1: "L1", Block2: "L2", Block3: "L3"},
-		StyleJ: BlockStyles{Block0: "J0", Block1: "J1", Block2: "J2", Block3: "J3"},
-		StyleT: BlockStyles{Block0: "T0", Block1: "T1", Block2: "T2", Block3: "T3"},
-	})
-
-	tetro := NewRandomTetro()
-	if tetro == nil {
-		t.Fatal("NewRandomTetro() returned nil")
-	}
-
-	blocks := tetro.Blocks()
-	if len(blocks) != 4 {
-		t.Errorf("NewRandomTetro() should return tetro with 4 blocks, got %d", len(blocks))
-	}
-
-	for i, block := range blocks {
-		x, y := block.Coordinates()
-		if block.Style() == nil {
-			t.Errorf("Block %d has nil style", i)
-		}
-		if x < -3 || x > 8 || y < -3 || y > 3 {
-			t.Errorf("Block %d has coordinates (%d, %d) outside of expected range", i, x, y)
-		}
+	if config.StyleO != testConfig.StyleO {
+		t.Errorf("Init() StyleO = %v, want %v", config.StyleO, testConfig.StyleO)
 	}
 }
 
@@ -68,13 +34,13 @@ func TestTetro_MoveRight(t *testing.T) {
 	Init(Config{
 		SpawnX: 5,
 		SpawnY: 0,
-		StyleO: BlockStyles{Block0: "O0", Block1: "O1", Block2: "O2", Block3: "O3"},
-		StyleI: BlockStyles{Block0: "I0", Block1: "I1", Block2: "I2", Block3: "I3"},
-		StyleS: BlockStyles{Block0: "S0", Block1: "S1", Block2: "S2", Block3: "S3"},
-		StyleZ: BlockStyles{Block0: "Z0", Block1: "Z1", Block2: "Z2", Block3: "Z3"},
-		StyleL: BlockStyles{Block0: "L0", Block1: "L1", Block2: "L2", Block3: "L3"},
-		StyleJ: BlockStyles{Block0: "J0", Block1: "J1", Block2: "J2", Block3: "J3"},
-		StyleT: BlockStyles{Block0: "T0", Block1: "T1", Block2: "T2", Block3: "T3"},
+		StyleO: "O",
+		StyleI: "I",
+		StyleS: "S",
+		StyleZ: "Z",
+		StyleL: "L",
+		StyleJ: "J",
+		StyleT: "T",
 	})
 
 	o := newO()
@@ -100,13 +66,13 @@ func TestTetro_MoveLeft(t *testing.T) {
 	Init(Config{
 		SpawnX: 5,
 		SpawnY: 0,
-		StyleO: BlockStyles{Block0: "O0", Block1: "O1", Block2: "O2", Block3: "O3"},
-		StyleI: BlockStyles{Block0: "I0", Block1: "I1", Block2: "I2", Block3: "I3"},
-		StyleS: BlockStyles{Block0: "S0", Block1: "S1", Block2: "S2", Block3: "S3"},
-		StyleZ: BlockStyles{Block0: "Z0", Block1: "Z1", Block2: "Z2", Block3: "Z3"},
-		StyleL: BlockStyles{Block0: "L0", Block1: "L1", Block2: "L2", Block3: "L3"},
-		StyleJ: BlockStyles{Block0: "J0", Block1: "J1", Block2: "J2", Block3: "J3"},
-		StyleT: BlockStyles{Block0: "T0", Block1: "T1", Block2: "T2", Block3: "T3"},
+		StyleO: "O",
+		StyleI: "I",
+		StyleS: "S",
+		StyleZ: "Z",
+		StyleL: "L",
+		StyleJ: "J",
+		StyleT: "T",
 	})
 
 	o := newO()
@@ -132,13 +98,13 @@ func TestTetro_MoveDown(t *testing.T) {
 	Init(Config{
 		SpawnX: 5,
 		SpawnY: 0,
-		StyleO: BlockStyles{Block0: "O0", Block1: "O1", Block2: "O2", Block3: "O3"},
-		StyleI: BlockStyles{Block0: "I0", Block1: "I1", Block2: "I2", Block3: "I3"},
-		StyleS: BlockStyles{Block0: "S0", Block1: "S1", Block2: "S2", Block3: "S3"},
-		StyleZ: BlockStyles{Block0: "Z0", Block1: "Z1", Block2: "Z2", Block3: "Z3"},
-		StyleL: BlockStyles{Block0: "L0", Block1: "L1", Block2: "L2", Block3: "L3"},
-		StyleJ: BlockStyles{Block0: "J0", Block1: "J1", Block2: "J2", Block3: "J3"},
-		StyleT: BlockStyles{Block0: "T0", Block1: "T1", Block2: "T2", Block3: "T3"},
+		StyleO: "O",
+		StyleI: "I",
+		StyleS: "S",
+		StyleZ: "Z",
+		StyleL: "L",
+		StyleJ: "J",
+		StyleT: "T",
 	})
 
 	o := newO()
@@ -164,13 +130,13 @@ func TestTetro_CanMoveDown(t *testing.T) {
 	Init(Config{
 		SpawnX: 5,
 		SpawnY: 0,
-		StyleO: BlockStyles{Block0: "O0", Block1: "O1", Block2: "O2", Block3: "O3"},
-		StyleI: BlockStyles{Block0: "I0", Block1: "I1", Block2: "I2", Block3: "I3"},
-		StyleS: BlockStyles{Block0: "S0", Block1: "S1", Block2: "S2", Block3: "S3"},
-		StyleZ: BlockStyles{Block0: "Z0", Block1: "Z1", Block2: "Z2", Block3: "Z3"},
-		StyleL: BlockStyles{Block0: "L0", Block1: "L1", Block2: "L2", Block3: "L3"},
-		StyleJ: BlockStyles{Block0: "J0", Block1: "J1", Block2: "J2", Block3: "J3"},
-		StyleT: BlockStyles{Block0: "T0", Block1: "T1", Block2: "T2", Block3: "T3"},
+		StyleO: "O",
+		StyleI: "I",
+		StyleS: "S",
+		StyleZ: "Z",
+		StyleL: "L",
+		StyleJ: "J",
+		StyleT: "T",
 	})
 
 	tests := []struct {
@@ -228,13 +194,13 @@ func TestTetro_CanMoveRight(t *testing.T) {
 	Init(Config{
 		SpawnX: 5,
 		SpawnY: 0,
-		StyleO: BlockStyles{Block0: "O0", Block1: "O1", Block2: "O2", Block3: "O3"},
-		StyleI: BlockStyles{Block0: "I0", Block1: "I1", Block2: "I2", Block3: "I3"},
-		StyleS: BlockStyles{Block0: "S0", Block1: "S1", Block2: "S2", Block3: "S3"},
-		StyleZ: BlockStyles{Block0: "Z0", Block1: "Z1", Block2: "Z2", Block3: "Z3"},
-		StyleL: BlockStyles{Block0: "L0", Block1: "L1", Block2: "L2", Block3: "L3"},
-		StyleJ: BlockStyles{Block0: "J0", Block1: "J1", Block2: "J2", Block3: "J3"},
-		StyleT: BlockStyles{Block0: "T0", Block1: "T1", Block2: "T2", Block3: "T3"},
+		StyleO: "O",
+		StyleI: "I",
+		StyleS: "S",
+		StyleZ: "Z",
+		StyleL: "L",
+		StyleJ: "J",
+		StyleT: "T",
 	})
 
 	tests := []struct {
@@ -292,13 +258,13 @@ func TestTetro_CanMoveLeft(t *testing.T) {
 	Init(Config{
 		SpawnX: 5,
 		SpawnY: 0,
-		StyleO: BlockStyles{Block0: "O0", Block1: "O1", Block2: "O2", Block3: "O3"},
-		StyleI: BlockStyles{Block0: "I0", Block1: "I1", Block2: "I2", Block3: "I3"},
-		StyleS: BlockStyles{Block0: "S0", Block1: "S1", Block2: "S2", Block3: "S3"},
-		StyleZ: BlockStyles{Block0: "Z0", Block1: "Z1", Block2: "Z2", Block3: "Z3"},
-		StyleL: BlockStyles{Block0: "L0", Block1: "L1", Block2: "L2", Block3: "L3"},
-		StyleJ: BlockStyles{Block0: "J0", Block1: "J1", Block2: "J2", Block3: "J3"},
-		StyleT: BlockStyles{Block0: "T0", Block1: "T1", Block2: "T2", Block3: "T3"},
+		StyleO: "O",
+		StyleI: "I",
+		StyleS: "S",
+		StyleZ: "Z",
+		StyleL: "L",
+		StyleJ: "J",
+		StyleT: "T",
 	})
 
 	tests := []struct {
@@ -328,13 +294,13 @@ func TestTetro_CanMoveLeft(t *testing.T) {
 				Init(Config{
 					SpawnX: 0,
 					SpawnY: 0,
-					StyleO: BlockStyles{Block0: "O0", Block1: "O1", Block2: "O2", Block3: "O3"},
-					StyleI: BlockStyles{Block0: "I0", Block1: "I1", Block2: "I2", Block3: "I3"},
-					StyleS: BlockStyles{Block0: "S0", Block1: "S1", Block2: "S2", Block3: "S3"},
-					StyleZ: BlockStyles{Block0: "Z0", Block1: "Z1", Block2: "Z2", Block3: "Z3"},
-					StyleL: BlockStyles{Block0: "L0", Block1: "L1", Block2: "L2", Block3: "L3"},
-					StyleJ: BlockStyles{Block0: "J0", Block1: "J1", Block2: "J2", Block3: "J3"},
-					StyleT: BlockStyles{Block0: "T0", Block1: "T1", Block2: "T2", Block3: "T3"},
+					StyleO: "O",
+					StyleI: "I",
+					StyleS: "S",
+					StyleZ: "Z",
+					StyleL: "L",
+					StyleJ: "J",
+					StyleT: "T",
 				})
 				return newO()
 			},

@@ -80,106 +80,67 @@ func TestTcell_Init(t *testing.T) {
 func TestTcell_GetBlockStyles(t *testing.T) {
 	tc := &tcell{}
 	tc.ui = ui{
-		oStyles: tetris.BlockStyles{Block0: "O0", Block1: "O1", Block2: "O2", Block3: "O3"},
-		iStyles: tetris.BlockStyles{Block0: "I0", Block1: "I1", Block2: "I2", Block3: "I3"},
-		sStyles: tetris.BlockStyles{Block0: "S0", Block1: "S1", Block2: "S2", Block3: "S3"},
-		zStyles: tetris.BlockStyles{Block0: "Z0", Block1: "Z1", Block2: "Z2", Block3: "Z3"},
-		lStyles: tetris.BlockStyles{Block0: "L0", Block1: "L1", Block2: "L2", Block3: "L3"},
-		jStyles: tetris.BlockStyles{Block0: "J0", Block1: "J1", Block2: "J2", Block3: "J3"},
-		tStyles: tetris.BlockStyles{Block0: "T0", Block1: "T1", Block2: "T2", Block3: "T3"},
+		oStyles: "O",
+		iStyles: "I",
+		sStyles: "S",
+		zStyles: "Z",
+		lStyles: "L",
+		jStyles: "J",
+		tStyles: "T",
 	}
 
 	o, i, s, z, l, j, _ := tc.GetBlockStyles()
 
-	if o.Block0 != "O0" || o.Block1 != "O1" || o.Block2 != "O2" || o.Block3 != "O3" {
-		t.Errorf("GetBlockStyles() O styles incorrect: got %+v", o)
+	if o != "O" {
+		t.Errorf("GetBlockStyles() O style incorrect: got %+v, want %+v", o, "O")
 	}
-	if i.Block0 != "I0" || i.Block1 != "I1" || i.Block2 != "I2" || i.Block3 != "I3" {
-		t.Errorf("GetBlockStyles() I styles incorrect: got %+v", i)
+	if i != "I" {
+		t.Errorf("GetBlockStyles() I style incorrect: got %+v, want %+v", i, "I")
 	}
-	if s.Block0 != "S0" || s.Block1 != "S1" || s.Block2 != "S2" || s.Block3 != "S3" {
-		t.Errorf("GetBlockStyles() S styles incorrect: got %+v", s)
+	if s != "S" {
+		t.Errorf("GetBlockStyles() S style incorrect: got %+v, want %+v", s, "S")
 	}
-	if z.Block0 != "Z0" || z.Block1 != "Z1" || z.Block2 != "Z2" || z.Block3 != "Z3" {
-		t.Errorf("GetBlockStyles() Z styles incorrect: got %+v", z)
+	if z != "Z" {
+		t.Errorf("GetBlockStyles() Z style incorrect: got %+v, want %+v", z, "Z")
 	}
-	if l.Block0 != "L0" || l.Block1 != "L1" || l.Block2 != "L2" || l.Block3 != "L3" {
-		t.Errorf("GetBlockStyles() L styles incorrect: got %+v", l)
+	if l != "L" {
+		t.Errorf("GetBlockStyles() L style incorrect: got %+v, want %+v", l, "L")
 	}
-	if j.Block0 != "J0" || j.Block1 != "J1" || j.Block2 != "J2" || j.Block3 != "J3" {
-		t.Errorf("GetBlockStyles() J styles incorrect: got %+v", j)
+	if j != "J" {
+		t.Errorf("GetBlockStyles() J style incorrect: got %+v, want %+v", j, "J")
 	}
 }
 
 func TestTcell_SetDevStyles(t *testing.T) {
 	tc := &tcell{}
 	tc.ui = ui{
-		oStyles: tetris.BlockStyles{
-			Block0: TcellStyle{fill: full},
-			Block1: TcellStyle{fill: shade},
-			Block2: TcellStyle{fill: full},
-			Block3: TcellStyle{fill: shade},
-		},
-		iStyles: tetris.BlockStyles{
-			Block0: TcellStyle{fill: full},
-			Block1: TcellStyle{fill: shade},
-			Block2: TcellStyle{fill: full},
-			Block3: TcellStyle{fill: shade},
-		},
-		sStyles: tetris.BlockStyles{
-			Block0: TcellStyle{fill: full},
-			Block1: TcellStyle{fill: shade},
-			Block2: TcellStyle{fill: full},
-			Block3: TcellStyle{fill: shade},
-		},
-		zStyles: tetris.BlockStyles{
-			Block0: TcellStyle{fill: full},
-			Block1: TcellStyle{fill: shade},
-			Block2: TcellStyle{fill: full},
-			Block3: TcellStyle{fill: shade},
-		},
-		lStyles: tetris.BlockStyles{
-			Block0: TcellStyle{fill: full},
-			Block1: TcellStyle{fill: shade},
-			Block2: TcellStyle{fill: full},
-			Block3: TcellStyle{fill: shade},
-		},
-		jStyles: tetris.BlockStyles{
-			Block0: TcellStyle{fill: full},
-			Block1: TcellStyle{fill: shade},
-			Block2: TcellStyle{fill: full},
-			Block3: TcellStyle{fill: shade},
-		},
-		tStyles: tetris.BlockStyles{
-			Block0: TcellStyle{fill: full},
-			Block1: TcellStyle{fill: shade},
-			Block2: TcellStyle{fill: full},
-			Block3: TcellStyle{fill: shade},
-		},
+		oStyles: TcellStyle{fill: full},
+		iStyles: TcellStyle{fill: full},
+		sStyles: TcellStyle{fill: full},
+		zStyles: TcellStyle{fill: full},
+		lStyles: TcellStyle{fill: full},
+		jStyles: TcellStyle{fill: full},
+		tStyles: TcellStyle{fill: full},
 	}
 
 	tc.setDevStyles()
 
-	checkDevStyle := func(styles tetris.BlockStyles, name string) {
-		if styles.Block0.(TcellStyle).fill != '0' {
-			t.Errorf("setDevStyles() %s Block0 fill = %c, want '0'", name, styles.Block0.(TcellStyle).fill)
+	checkDevStyle := func(style tetris.BlockStyle, name string, expectedChar rune) {
+		tcellStyle, ok := style.(TcellStyle)
+		if !ok {
+			t.Errorf("setDevStyles() %s style is not TcellStyle type", name)
+			return
 		}
-		if styles.Block1.(TcellStyle).fill != '1' {
-			t.Errorf("setDevStyles() %s Block1 fill = %c, want '1'", name, styles.Block1.(TcellStyle).fill)
-		}
-		if styles.Block2.(TcellStyle).fill != '2' {
-			t.Errorf("setDevStyles() %s Block2 fill = %c, want '2'", name, styles.Block2.(TcellStyle).fill)
-		}
-		if styles.Block3.(TcellStyle).fill != '3' {
-			t.Errorf("setDevStyles() %s Block3 fill = %c, want '3'", name, styles.Block3.(TcellStyle).fill)
+		if tcellStyle.fill != expectedChar {
+			t.Errorf("setDevStyles() %s fill = %c, want %c", name, tcellStyle.fill, expectedChar)
 		}
 	}
 
-	checkDevStyle(tc.oStyles, "O")
-	checkDevStyle(tc.iStyles, "I")
-	checkDevStyle(tc.sStyles, "S")
-	checkDevStyle(tc.zStyles, "Z")
-	checkDevStyle(tc.lStyles, "L")
-	checkDevStyle(tc.jStyles, "J")
-	checkDevStyle(tc.tStyles, "T")
+	checkDevStyle(tc.oStyles, "O", 'O')
+	checkDevStyle(tc.iStyles, "I", 'I')
+	checkDevStyle(tc.sStyles, "S", 'S')
+	checkDevStyle(tc.zStyles, "Z", 'Z')
+	checkDevStyle(tc.lStyles, "L", 'L')
+	checkDevStyle(tc.jStyles, "J", 'J')
+	checkDevStyle(tc.tStyles, "T", 'T')
 }

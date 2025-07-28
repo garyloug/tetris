@@ -26,26 +26,27 @@ func TestMockUI_Implementation(t *testing.T) {
 	}
 
 	o, i, s, z, l, j, tStyle := mock.GetBlockStyles()
-	if o.Block0 != "style0" {
-		t.Errorf("GetBlockStyles() o.Block0 = %v, want %v", o.Block0, "style0")
+	expectedStyle := "mockStyle"
+	if o != expectedStyle {
+		t.Errorf("GetBlockStyles() o = %v, want %v", o, expectedStyle)
 	}
-	if i.Block1 != "style1" {
-		t.Errorf("GetBlockStyles() i.Block1 = %v, want %v", i.Block1, "style1")
+	if i != expectedStyle {
+		t.Errorf("GetBlockStyles() i = %v, want %v", i, expectedStyle)
 	}
-	if s.Block2 != "style2" {
-		t.Errorf("GetBlockStyles() s.Block2 = %v, want %v", s.Block2, "style2")
+	if s != expectedStyle {
+		t.Errorf("GetBlockStyles() s = %v, want %v", s, expectedStyle)
 	}
-	if z.Block3 != "style3" {
-		t.Errorf("GetBlockStyles() z.Block3 = %v, want %v", z.Block3, "style3")
+	if z != expectedStyle {
+		t.Errorf("GetBlockStyles() z = %v, want %v", z, expectedStyle)
 	}
-	if l.Block0 != "style0" {
-		t.Errorf("GetBlockStyles() l.Block0 = %v, want %v", l.Block0, "style0")
+	if l != expectedStyle {
+		t.Errorf("GetBlockStyles() l = %v, want %v", l, expectedStyle)
 	}
-	if j.Block1 != "style1" {
-		t.Errorf("GetBlockStyles() j.Block1 = %v, want %v", j.Block1, "style1")
+	if j != expectedStyle {
+		t.Errorf("GetBlockStyles() j = %v, want %v", j, expectedStyle)
 	}
-	if tStyle.Block2 != "style2" {
-		t.Errorf("GetBlockStyles() tStyle.Block2 = %v, want %v", tStyle.Block2, "style2")
+	if tStyle != expectedStyle {
+		t.Errorf("GetBlockStyles() tStyle = %v, want %v", tStyle, expectedStyle)
 	}
 
 	keyChannel := mock.KeyPress()

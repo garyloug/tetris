@@ -81,7 +81,7 @@ func TestNewUI(t *testing.T) {
 					}
 
 					o, i, s, z, l, j, tStyle := ui.GetBlockStyles()
-					if o.Block0 == nil || i.Block0 == nil || s.Block0 == nil || z.Block0 == nil || l.Block0 == nil || j.Block0 == nil || tStyle.Block0 == nil {
+					if o == nil || i == nil || s == nil || z == nil || l == nil || j == nil || tStyle == nil {
 						t.Error("NewUI created UI with nil block styles")
 					}
 				}

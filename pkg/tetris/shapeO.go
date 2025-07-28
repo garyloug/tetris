@@ -4,7 +4,7 @@ type o struct{ tetro }
 
 func newO() Tetro {
 	x, y := config.SpawnX, config.SpawnY
-	s0, s1, s2, s3 := config.StyleO.Block0, config.StyleO.Block1, config.StyleO.Block2, config.StyleO.Block3
+	style := config.StyleO
 
 	// 0033
 	// 1122
@@ -12,10 +12,10 @@ func newO() Tetro {
 		tetro: tetro{
 			x:      x,
 			y:      y,
-			block0: Block{x: x, y: y, style: s0},
-			block1: Block{x: x, y: y + 1, style: s1},
-			block2: Block{x: x + 1, y: y + 1, style: s2},
-			block3: Block{x: x + 1, y: y, style: s3},
+			block0: Block{x: x, y: y, style: style},
+			block1: Block{x: x, y: y + 1, style: style},
+			block2: Block{x: x + 1, y: y + 1, style: style},
+			block3: Block{x: x + 1, y: y, style: style},
 		},
 	}
 }

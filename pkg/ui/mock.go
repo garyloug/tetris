@@ -6,7 +6,7 @@ type MockUI struct {
 	BoardHeight  int
 	BoardWidth   int
 	keyPressChan chan KeyPress
-	blockStyles  tetris.BlockStyles
+	blockStyle   tetris.BlockStyle
 	Started      bool
 	Stopped      bool
 }
@@ -14,12 +14,7 @@ type MockUI struct {
 func newMockUI() (UI, func()) {
 	return &MockUI{
 		keyPressChan: make(chan KeyPress, 10),
-		blockStyles: tetris.BlockStyles{
-			Block0: "style0",
-			Block1: "style1",
-			Block2: "style2",
-			Block3: "style3",
-		},
+		blockStyle:   "mockStyle",
 	}, func() {}
 }
 
@@ -29,8 +24,8 @@ func (m *MockUI) Init(boardHeight, boardWidth int) error {
 	return nil
 }
 
-func (m *MockUI) GetBlockStyles() (o, i, s, z, l, j, t tetris.BlockStyles) {
-	return m.blockStyles, m.blockStyles, m.blockStyles, m.blockStyles, m.blockStyles, m.blockStyles, m.blockStyles
+func (m *MockUI) GetBlockStyles() (o, i, s, z, l, j, t tetris.BlockStyle) {
+	return m.blockStyle, m.blockStyle, m.blockStyle, m.blockStyle, m.blockStyle, m.blockStyle, m.blockStyle
 }
 
 func (m *MockUI) Update(blocks []tetris.Block, queue []tetris.Tetro, score, level, linesCleared int, status Status) {

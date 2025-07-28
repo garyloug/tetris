@@ -29,7 +29,7 @@ type (
 
 type UI interface {
 	Init(boardHeight, boardWidth int) error
-	GetBlockStyles() (o, i, s, z, l, j, t tetris.BlockStyles)
+	GetBlockStyles() (o, i, s, z, l, j, t tetris.BlockStyle)
 	Update(blocks []tetris.Block, queue []tetris.Tetro, score, level, linesCleared int, status Status)
 
 	KeyPress() <-chan KeyPress
@@ -62,13 +62,13 @@ type ui struct {
 	boardWidth  int
 
 	// block styles for each tetro type
-	oStyles tetris.BlockStyles
-	iStyles tetris.BlockStyles
-	sStyles tetris.BlockStyles
-	zStyles tetris.BlockStyles
-	lStyles tetris.BlockStyles
-	jStyles tetris.BlockStyles
-	tStyles tetris.BlockStyles
+	oStyles tetris.BlockStyle
+	iStyles tetris.BlockStyle
+	sStyles tetris.BlockStyle
+	zStyles tetris.BlockStyle
+	lStyles tetris.BlockStyle
+	jStyles tetris.BlockStyle
+	tStyles tetris.BlockStyle
 
 	// event channel for user input
 	eventChan chan KeyPress

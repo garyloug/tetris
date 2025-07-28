@@ -32,23 +32,18 @@ type tetro struct {
 	block3   Block
 }
 
-type BlockStyles struct {
-	Block0 any
-	Block1 any
-	Block2 any
-	Block3 any
-}
+type BlockStyle any
 
 type Config struct {
 	SpawnX int
 	SpawnY int
-	StyleO BlockStyles
-	StyleI BlockStyles
-	StyleS BlockStyles
-	StyleZ BlockStyles
-	StyleL BlockStyles
-	StyleJ BlockStyles
-	StyleT BlockStyles
+	StyleO BlockStyle
+	StyleI BlockStyle
+	StyleS BlockStyle
+	StyleZ BlockStyle
+	StyleL BlockStyle
+	StyleJ BlockStyle
+	StyleT BlockStyle
 }
 
 func Init(cfg Config) {

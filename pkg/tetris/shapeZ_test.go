@@ -8,13 +8,13 @@ func TestNewZ(t *testing.T) {
 	Init(Config{
 		SpawnX: 5,
 		SpawnY: 5,
-		StyleZ: BlockStyles{Block0: "Z0", Block1: "Z1", Block2: "Z2", Block3: "Z3"},
-		StyleI: BlockStyles{Block0: "I0", Block1: "I1", Block2: "I2", Block3: "I3"},
-		StyleO: BlockStyles{Block0: "O0", Block1: "O1", Block2: "O2", Block3: "O3"},
-		StyleS: BlockStyles{Block0: "S0", Block1: "S1", Block2: "S2", Block3: "S3"},
-		StyleJ: BlockStyles{Block0: "J0", Block1: "J1", Block2: "J2", Block3: "J3"},
-		StyleL: BlockStyles{Block0: "L0", Block1: "L1", Block2: "L2", Block3: "L3"},
-		StyleT: BlockStyles{Block0: "T0", Block1: "T1", Block2: "T2", Block3: "T3"},
+		StyleZ: "Z",
+		StyleI: "I",
+		StyleO: "O",
+		StyleS: "S",
+		StyleJ: "J",
+		StyleL: "L",
+		StyleT: "T",
 	})
 
 	z := newZ()
@@ -42,10 +42,10 @@ func TestNewZ(t *testing.T) {
 		}
 	}
 
-	expectedStyles := []any{config.StyleZ.Block0, config.StyleZ.Block1, config.StyleZ.Block2, config.StyleZ.Block3}
-	for i, expected := range expectedStyles {
-		if blocks[i].Style() != expected {
-			t.Errorf("Block %d style = %v, want %v", i, blocks[i].Style(), expected)
+	expectedStyle := config.StyleZ
+	for i, block := range blocks {
+		if block.Style() != expectedStyle {
+			t.Errorf("Block %d style = %v, want %v", i, block.Style(), expectedStyle)
 		}
 	}
 }
@@ -54,13 +54,13 @@ func TestZ_Rotate(t *testing.T) {
 	Init(Config{
 		SpawnX: 5,
 		SpawnY: 5,
-		StyleZ: BlockStyles{Block0: "Z0", Block1: "Z1", Block2: "Z2", Block3: "Z3"},
-		StyleI: BlockStyles{Block0: "I0", Block1: "I1", Block2: "I2", Block3: "I3"},
-		StyleO: BlockStyles{Block0: "O0", Block1: "O1", Block2: "O2", Block3: "O3"},
-		StyleS: BlockStyles{Block0: "S0", Block1: "S1", Block2: "S2", Block3: "S3"},
-		StyleJ: BlockStyles{Block0: "J0", Block1: "J1", Block2: "J2", Block3: "J3"},
-		StyleL: BlockStyles{Block0: "L0", Block1: "L1", Block2: "L2", Block3: "L3"},
-		StyleT: BlockStyles{Block0: "T0", Block1: "T1", Block2: "T2", Block3: "T3"},
+		StyleZ: "Z",
+		StyleI: "I",
+		StyleO: "O",
+		StyleS: "S",
+		StyleJ: "J",
+		StyleL: "L",
+		StyleT: "T",
 	})
 
 	z := newZ()
@@ -111,13 +111,13 @@ func TestZ_CanRotate(t *testing.T) {
 	Init(Config{
 		SpawnX: 5,
 		SpawnY: 5,
-		StyleZ: BlockStyles{Block0: "Z0", Block1: "Z1", Block2: "Z2", Block3: "Z3"},
-		StyleI: BlockStyles{Block0: "I0", Block1: "I1", Block2: "I2", Block3: "I3"},
-		StyleO: BlockStyles{Block0: "O0", Block1: "O1", Block2: "O2", Block3: "O3"},
-		StyleS: BlockStyles{Block0: "S0", Block1: "S1", Block2: "S2", Block3: "S3"},
-		StyleJ: BlockStyles{Block0: "J0", Block1: "J1", Block2: "J2", Block3: "J3"},
-		StyleL: BlockStyles{Block0: "L0", Block1: "L1", Block2: "L2", Block3: "L3"},
-		StyleT: BlockStyles{Block0: "T0", Block1: "T1", Block2: "T2", Block3: "T3"},
+		StyleZ: "Z",
+		StyleI: "I",
+		StyleO: "O",
+		StyleS: "S",
+		StyleJ: "J",
+		StyleL: "L",
+		StyleT: "T",
 	})
 
 	tests := []struct {

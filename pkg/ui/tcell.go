@@ -100,13 +100,13 @@ func newTcellUI() (UI, func()) {
 
 	tc.ui = ui{
 		eventChan: make(chan KeyPress, 10),
-		oStyles:   tetris.BlockStyles{Block0: oStyle, Block1: oStyle, Block2: oStyle, Block3: oStyle},
-		iStyles:   tetris.BlockStyles{Block0: iStyle, Block1: iStyle, Block2: iStyle, Block3: iStyle},
-		sStyles:   tetris.BlockStyles{Block0: sStyle, Block1: sStyle, Block2: sStyle, Block3: sStyle},
-		zStyles:   tetris.BlockStyles{Block0: zStyle, Block1: zStyle, Block2: zStyle, Block3: zStyle},
-		lStyles:   tetris.BlockStyles{Block0: lStyle, Block1: lStyle, Block2: lStyle, Block3: lStyle},
-		jStyles:   tetris.BlockStyles{Block0: jStyle, Block1: jStyle, Block2: jStyle, Block3: jStyle},
-		tStyles:   tetris.BlockStyles{Block0: tStyle, Block1: tStyle, Block2: tStyle, Block3: tStyle},
+		oStyles:   oStyle,
+		iStyles:   iStyle,
+		sStyles:   sStyle,
+		zStyles:   zStyle,
+		lStyles:   lStyle,
+		jStyles:   jStyle,
+		tStyles:   tStyle,
 	}
 
 	tc.screen.Show()
@@ -130,8 +130,8 @@ func (tc *tcell) Init(boardH, boardW int) error {
 	return nil
 }
 
-func (tc *tcell) GetBlockStyles() (o, i, s, z, l, j, t tetris.BlockStyles) {
-	return tc.oStyles, tc.iStyles, tc.sStyles, tc.zStyles, tc.lStyles, tc.jStyles, tc.tStyles
+func (tc *tcell) GetBlockStyles() (o, i, s, z, l, j, t tetris.BlockStyle) {
+	return tc.ui.oStyles, tc.ui.iStyles, tc.ui.sStyles, tc.ui.zStyles, tc.ui.lStyles, tc.ui.jStyles, tc.ui.tStyles
 }
 
 func (tc *tcell) Update(blocks []tetris.Block, queue []tetris.Tetro, score, level, linesCleared int, status Status) {
@@ -298,23 +298,34 @@ func (tc *tcell) run() {
 }
 
 func (tc *tcell) setDevStyles() {
-	styles := []*tetris.BlockStyles{&tc.oStyles, &tc.iStyles, &tc.sStyles, &tc.zStyles, &tc.lStyles, &tc.jStyles, &tc.tStyles}
-	for _, style := range styles {
-		style.Block0 = TcellStyle{
-			style: style.Block0.(TcellStyle).style,
-			fill:  '0',
-		}
-		style.Block1 = TcellStyle{
-			style: style.Block1.(TcellStyle).style,
-			fill:  '1',
-		}
-		style.Block2 = TcellStyle{
-			style: style.Block2.(TcellStyle).style,
-			fill:  '2',
-		}
-		style.Block3 = TcellStyle{
-			style: style.Block3.(TcellStyle).style,
-			fill:  '3',
-		}
+	// In dev mode, show different characters for each tetro type
+	// Since all blocks in a tetro now use the same style, we'll use one character per tetro
+	tc.ui.oStyles = TcellStyle{
+		style: tc.ui.oStyles.(TcellStyle).style,
+		fill:  'O',
+	}
+	tc.ui.iStyles = TcellStyle{
+		style: tc.ui.iStyles.(TcellStyle).style,
+		fill:  'I',
+	}
+	tc.ui.sStyles = TcellStyle{
+		style: tc.ui.sStyles.(TcellStyle).style,
+		fill:  'S',
+	}
+	tc.ui.zStyles = TcellStyle{
+		style: tc.ui.zStyles.(TcellStyle).style,
+		fill:  'Z',
+	}
+	tc.ui.lStyles = TcellStyle{
+		style: tc.ui.lStyles.(TcellStyle).style,
+		fill:  'L',
+	}
+	tc.ui.jStyles = TcellStyle{
+		style: tc.ui.jStyles.(TcellStyle).style,
+		fill:  'J',
+	}
+	tc.ui.tStyles = TcellStyle{
+		style: tc.ui.tStyles.(TcellStyle).style,
+		fill:  'T',
 	}
 }

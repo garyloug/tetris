@@ -4,7 +4,7 @@ type z struct{ tetro }
 
 func newZ() Tetro {
 	x, y := config.SpawnX, config.SpawnY
-	s0, s1, s2, s3 := config.StyleZ.Block0, config.StyleZ.Block1, config.StyleZ.Block2, config.StyleZ.Block3
+	style := config.StyleZ
 
 	// 1100
 	//   2233
@@ -12,10 +12,10 @@ func newZ() Tetro {
 		tetro: tetro{
 			x:      x,
 			y:      y,
-			block0: Block{x: x, y: y, style: s0},
-			block1: Block{x: x - 1, y: y, style: s1},
-			block2: Block{x: x, y: y + 1, style: s2},
-			block3: Block{x: x + 1, y: y + 1, style: s3},
+			block0: Block{x: x, y: y, style: style},
+			block1: Block{x: x - 1, y: y, style: style},
+			block2: Block{x: x, y: y + 1, style: style},
+			block3: Block{x: x + 1, y: y + 1, style: style},
 		},
 	}
 }

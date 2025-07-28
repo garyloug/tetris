@@ -4,7 +4,7 @@ type j struct{ tetro }
 
 func newJ() Tetro {
 	x, y := config.SpawnX, config.SpawnY
-	s0, s1, s2, s3 := config.StyleJ.Block0, config.StyleJ.Block1, config.StyleJ.Block2, config.StyleJ.Block3
+	style := config.StyleJ
 
 	//   22
 	//   11
@@ -13,10 +13,10 @@ func newJ() Tetro {
 		tetro: tetro{
 			x:      x,
 			y:      y,
-			block0: Block{x: x, y: y, style: s0},
-			block1: Block{x: x, y: y - 1, style: s1},
-			block2: Block{x: x, y: y - 2, style: s2},
-			block3: Block{x: x - 1, y: y, style: s3},
+			block0: Block{x: x, y: y, style: style},
+			block1: Block{x: x, y: y - 1, style: style},
+			block2: Block{x: x, y: y - 2, style: style},
+			block3: Block{x: x - 1, y: y, style: style},
 		},
 	}
 }
