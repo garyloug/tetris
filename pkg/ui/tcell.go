@@ -66,6 +66,7 @@ type tcell struct {
 	screen     tcellLib.Screen
 	boardStyle tcellLib.Style
 	quit       chan struct{}
+	bgFill     rune
 }
 
 func newTcellUI() (UI, func()) {
@@ -96,6 +97,7 @@ func newTcellUI() (UI, func()) {
 		screen:     s,
 		boardStyle: tcellLib.StyleDefault.Background(bgColour).Foreground(bgColour),
 		quit:       make(chan struct{}),
+		bgFill:     full,
 	}
 
 	tc.ui = ui{
@@ -118,6 +120,7 @@ func newTcellDevUI() (UI, func()) {
 	tcRaw, cleanup := newTcellUI()
 	tc := tcRaw.(*tcell)
 	tc.setDevStyles()
+	tc.bgFill = '·'
 	return tc, cleanup
 }
 
@@ -140,8 +143,8 @@ func (tc *tcell) Update(blocks []tetris.Block, queue []tetris.Tetro, score, leve
 	// draw the board
 	for y := 0; y < tc.boardHeight; y++ {
 		for x := 0; x < tc.boardWidth; x++ {
-			tc.screen.SetContent(x*xMultiplier, y*yMultiplier, full, nil, tc.boardStyle)
-			tc.screen.SetContent(x*xMultiplier+1, y*yMultiplier, full, nil, tc.boardStyle)
+			tc.screen.SetContent(x*xMultiplier, y*yMultiplier, tc.bgFill, nil, tc.boardStyle)
+			tc.screen.SetContent(x*xMultiplier+1, y*yMultiplier, tc.bgFill, nil, tc.boardStyle)
 		}
 	}
 
