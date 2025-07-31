@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"runtime"
 
 	"github.com/magefile/mage/mg"
 	"github.com/magefile/mage/sh"
@@ -16,9 +17,24 @@ const (
 	mainPath   = "./cmd"
 )
 
-// Build builds the binary
+var Default = Build
+
+// Build builds the full binary (requires C compiler)
 func Build() error {
-	err := sh.Run("go", "build", "-o", binaryName, mainPath)
+	outputName := getBinaryName()
+	err := sh.Run("go", "build", "-o", outputName, mainPath)
+	if err != nil {
+		fmt.Println("❌ Build failed!")
+		return err
+	}
+	fmt.Println("✅ Build succeeded!")
+	return nil
+}
+
+// BuildConsole builds the binary with console UI only (does not require C compiler)
+func BuildConsole() error {
+	outputName := getBinaryName()
+	err := sh.Run("go", "build", "-tags", "console", "-o", outputName, mainPath)
 	if err != nil {
 		fmt.Println("❌ Build failed!")
 		return err
@@ -29,8 +45,9 @@ func Build() error {
 
 // Clean removes built artifacts
 func Clean() error {
-	if _, err := os.Stat(binaryName); err == nil {
-		if err := os.Remove(binaryName); err != nil {
+	outputName := getBinaryName()
+	if _, err := os.Stat(outputName); err == nil {
+		if err := os.Remove(outputName); err != nil {
 			fmt.Println("❌ Clean failed!")
 			return err
 		}
@@ -44,7 +61,8 @@ func Clean() error {
 // Run builds and runs the game
 func Run() error {
 	mg.Deps(Build)
-	binaryPath, err := filepath.Abs(binaryName)
+	outputName := getBinaryName()
+	binaryPath, err := filepath.Abs(outputName)
 	if err != nil {
 		fmt.Println("❌ Run failed!")
 		return err
@@ -133,5 +151,9 @@ func All() error {
 	return nil
 }
 
-// Default target
-var Default = Build
+func getBinaryName() string {
+	if runtime.GOOS == "windows" {
+		return binaryName + ".exe"
+	}
+	return binaryName
+}

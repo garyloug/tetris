@@ -79,12 +79,13 @@ func (g *Game) Start() <-chan struct{} {
 		// TODO implement log to file
 		panic(err)
 	}
-	g.ui.Start()
-	g.resetMoveTimer()
-	g.updateUI()
 
 	go g.userEvents()
 	go g.run()
+
+	g.resetMoveTimer()
+	g.updateUI()
+	g.ui.Start()
 
 	return g.done
 }
